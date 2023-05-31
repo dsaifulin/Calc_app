@@ -1,6 +1,9 @@
 package com.example.calc_app
 
+import android.app.UiModeManager
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-
+    private var isDarkTheme = false
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Calc_app_Dark);
         super.onCreate(savedInstanceState)
@@ -40,18 +43,16 @@ class MainActivity : AppCompatActivity() {
         binding.PercentButton.setOnClickListener { setTextField(" % ") }
         binding.EqualButton.setOnClickListener { calculationResult(binding.operationField.text.toString()) }
 
-        //Начальное положение switch
-//        binding.switchTheme.isChecked = when (AppCompatDelegate.getDefaultNightMode()) {
-//            AppCompatDelegate.MODE_NIGHT_YES -> true
-//            else -> false
-//        }
-        //Обработка переключения
-//        binding.switchTheme.setOnCheckedChangeListener { _, isCheked->
-//            if (isCheked) setTheme(R.style.MyButtonsTextStyle)
-//            else setTheme(R.style.Theme_Calc_app)
-//            recreate()
-//        }
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            isDarkTheme = isChecked
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
+
 
     private fun setTextField(str: String){
         val operationField = binding.operationField

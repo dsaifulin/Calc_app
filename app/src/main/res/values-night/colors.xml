@@ -7,12 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!--Light theme colors-->
-    <color name="ItemsColor">#1A1A1B</color>
-    <color name="TextOnItemsColor">#E4E1E1</color>
-    <color name="Background">#E1DCDC</color>
-    <color name="Text">#1A1B1C</color>
-    <color name="ItemsColor_2">#404042</color>
-
-
+    <!--Dark theme colors-->
+    <color name="ItemsColor">#BDC3CC</color>
+    <color name="TextOnItemsColor">#121010</color>
+    <color name="Background">#171616</color>
+    <color name="Text">#DCD4D4</color>
+    <color name="ItemsColor_2">#A1A1A1</color>
 </resources>
