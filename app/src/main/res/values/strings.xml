@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Calc_app</string>
+    <string name="lang_en">Language:</string>
+    <string name="settings_en">Settings</string>
+    <string name="accur_en">Accuracy:</string>
+    <string name="div_en">Division mode:</string>
+    <string name="button_en">Save</string>
+    <string name="div_ru">Режим деления:</string>
+    <string name="lang_ru">Язык:</string>
+    <string name="settings_ru">Настройки</string>
+    <string name="accur_ru">Точность:</string>
+    <string name="button_ru">Сохранить</string>
+    <string-array name="spinner_data_en">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+    <string-array name="divisions_mods">
+        <item>Float</item>
+        <item>Int</item>
+    </string-array>
 </resources>

@@ -1,24 +1,35 @@
 package com.example.calc_app
 
-import android.app.UiModeManager
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.res.Configuration
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.widget.CompoundButton
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.calc_app.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
+    private var settings: Any? = -1
+
+    private val resultLauncher : ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                settings = data?.getStringExtra("resultKey")
+            }
+        }
 
     private lateinit var binding: ActivityMainBinding
+
     private var isDarkTheme = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_Calc_app_Dark);
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -42,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.MultiplyButton.setOnClickListener { setTextField(" * ") }
         binding.PercentButton.setOnClickListener { setTextField(" % ") }
         binding.EqualButton.setOnClickListener { calculationResult(binding.operationField.text.toString()) }
-
+        binding.BackButton.setOnClickListener { Log.d("TAG", "Текущая настройка: $settings") }
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
             isDarkTheme = isChecked
             if (isChecked) {
@@ -51,7 +62,13 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+        binding.settingsButton.setOnClickListener{
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("isdarkTheme", isDarkTheme)
+            resultLauncher.launch(intent)
+        }
     }
+
 
 
     private fun setTextField(str: String){
@@ -94,4 +111,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding.rersultText.text = result.toString()
     }
+
+//    fun settingBuild(settings: String?): List<Any> {
+//        val settingsList = settings.toList()
+//    }
+
 }
+
